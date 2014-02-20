@@ -1,12 +1,17 @@
 package controllers
 
-import play.api._
 import play.api.mvc._
 
 object Application extends Controller {
 
-  def index = Action {
-    Ok(views.html.index("Helo, Alex one"))
-  }
+  def index = TODO
+  
+  def students = TODO
+
+  def student = TODO
+
+  def courses = TODO
+
+  def course = TODO
 
 }
