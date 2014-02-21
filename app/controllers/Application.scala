@@ -11,10 +11,14 @@ object Application extends Controller {
   def students = TODO
 
   def student(id: Int) = TODO
+  
+  def studentCreate = TODO
 
   // routes.Application.hello("Bob")
   def courses = TODO
 
-  def course(id: Int) = TODO 
+  def course(id: Int) = TODO
+
+  def courseCreate = TODO
 
 }
