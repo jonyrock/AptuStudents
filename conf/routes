@@ -3,4 +3,3 @@ GET     /students/                      controllers.Application.students
 GET     /student/:id                    controllers.Application.student(id: Int)
 GET     /courses/                       controllers.Application.courses
 GET     /course/:id                     controllers.Application.course(id: Int)
-
