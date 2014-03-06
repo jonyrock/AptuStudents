@@ -6,6 +6,7 @@
 GET     /                               controllers.Application.index
 
 GET     /students                       controllers.Students.list
+GET     /students/new                   controllers.Students.createForm
 POST    /students                       controllers.Students.create
 GET     /student/:id                    controllers.Students.show(id: Int)
 PUT     /student/:id                    controllers.Students.update(id: Int)

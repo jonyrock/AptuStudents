@@ -1,5 +1,13 @@
 @(message: String)
         
-@main("AptuStudents") {    
-    @message
+@main("Home") {
+    <h3>Menu:</h3>
+    <ul>
+        <li>
+            <a href="@routes.Students.list">See all students</a>
+        </li>
+        <li>
+            <a href="@routes.Students.createForm">Add a student</a>
+        </li>
+    </ul>
 }
