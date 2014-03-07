@@ -7,7 +7,7 @@ GET     /                               controllers.Application.index
 
 GET     /students                       controllers.Students.list
 GET     /students/new                   controllers.Students.createForm
-POST    /students                       controllers.Students.create
+POST    /students                       controllers.Students.save
 GET     /student/:id                    controllers.Students.show(id: Int)
 PUT     /student/:id                    controllers.Students.update(id: Int)
 DELETE  /student/:id                    controllers.Students.delete(id: Int)
