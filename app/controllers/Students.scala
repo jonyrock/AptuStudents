@@ -12,13 +12,15 @@ object Students extends Controller {
   
   val studentForm = Form(
     mapping(
-      "id" -> ignored(NotAssigned:Pk[String]),
+      "id" -> ignored(NotAssigned:Pk[Long]),
       "name"-> nonEmptyText(minLength = 5, maxLength = 40),
       "department"-> text
     )(Student.apply)(Student.unapply)
   )
   
-  def list = TODO
+  def list = Action { implicit request =>
+    Ok(html.list("Hi", Student.list))
+  }
   
   def save = Action { implicit request =>
       studentForm.bindFromRequest.fold(
