@@ -41,11 +41,22 @@ object Students extends Controller {
   def edit(id: Long) = Action {
     Student.findById(id).map {
       student =>
-        Ok(html.editForm(id, studentForm))
+        Ok(html.editForm(id, studentForm.fill(student)))
     }.getOrElse(NotFound)
   }
 
-  def update(id: Long) = TODO
+  def update(id: Long) = Action {
+    implicit request => {
+      studentForm.bindFromRequest.fold(
+        formWithErrors => BadRequest(html.editForm(id, formWithErrors)),
+        student => {
+          Student.update(id, student)
+          Ok(html.createResult("Good"))
+        }
+      )
+    }
+
+  }
 
   def delete(id: Long) = TODO
 
