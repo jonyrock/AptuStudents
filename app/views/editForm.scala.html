@@ -1,0 +1,20 @@
+@(id: Long, studentForm: Form[Student])
+
+@import helper._
+
+@main("Edit student") {
+
+@form(routes.Students.update(id)) {
+
+<fieldset>
+    @inputText(studentForm("name"), '_label -> "Student name")
+    @inputText(studentForm("department"), '_label -> "Department")
+</fieldset>
+
+<div class="actions">
+    <input type="submit" value="Edit">
+</div>
+
+}
+
+}
