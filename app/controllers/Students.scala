@@ -20,38 +20,38 @@ object Students extends Controller {
 
   def list = Action {
     implicit request =>
-      Ok(html.list("Hi", Student.list))
+      Ok(html.studentsList(Student.list))
   }
 
   def save = Action {
     implicit request =>
       studentForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(html.createForm(formWithErrors)),
+        formWithErrors => BadRequest(html.studentCreateForm(formWithErrors)),
         student => {
           Student.insert(student)
-          Ok(html.createResult("Good"))
+          Ok(html.operationResult("Good"))
         }
       )
   }
 
   def create = Action {
-    Ok(html.createForm(studentForm))
+    Ok(html.studentCreateForm(studentForm))
   }
 
   def edit(id: Long) = Action {
     Student.findById(id).map {
       student =>
-        Ok(html.editForm(id, studentForm.fill(student)))
+        Ok(html.studentEditForm(id, studentForm.fill(student)))
     }.getOrElse(NotFound)
   }
 
   def update(id: Long) = Action {
     implicit request => {
       studentForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(html.editForm(id, formWithErrors)),
+        formWithErrors => BadRequest(html.studentEditForm(id, formWithErrors)),
         student => {
           Student.update(id, student)
-          Ok(html.createResult("Good"))
+          Ok(html.operationResult("Good"))
         }
       )
     }
