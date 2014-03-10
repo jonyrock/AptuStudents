@@ -9,24 +9,27 @@ import play.api.Play.current
 case class Student(
                     id: Pk[Long] = NotAssigned,
                     name: String,
-                    department: String
+                    department: Long
                     )
 
-case class Course(
-                   id: Pk[String] = NotAssigned,
-                   name: String,
-                   description: String
-                   )
-
+case class Department(
+                       id: Pk[Long] = NotAssigned,
+                       name: String,
+                       imageSrc: String
+                       )
 
 object Student {
 
   val simple = {
     get[Pk[Long]]("student.id") ~
       get[String]("student.name") ~
-      get[String]("student.department") map {
+      get[Long]("student.department") map {
       case id ~ name ~ department => Student(id, name, department)
     }
+  }
+
+  val withDepartment = Student.simple ~ (Department.simple ?) map {
+    case computer ~ company => (computer, company)
   }
 
   def findById(id: Long): Option[Student] = {
@@ -40,8 +43,8 @@ object Student {
       implicit connection =>
         SQL(
           """
-        select * from student
-        order by student.name
+            select * from student
+            order by student.name
           """).as(Student.simple *)
     }
   }
@@ -51,9 +54,9 @@ object Student {
       implicit connection =>
         SQL(
           """
-        update student
-        set name = {name}, department = {department}
-        where id = {id}
+            update student
+            set name = {name}, department = {department}
+            where id = {id}
           """)
           .on(
             'id -> id,
@@ -87,26 +90,83 @@ object Student {
 
 }
 
-object Course {
+object Department {
+
+  val simple = get[Pk[Long]]("department.id") ~
+    get[String]("department.name") ~
+    get[String]("department.imageSrc") map {
+    case id ~ name ~ imageSrc => Department(id, name, imageSrc)
+  }
 
   def findById(id: Long) = {
-
+    def findById(id: Long): Option[Department] = {
+      DB.withConnection(implicit connection =>
+        SQL("select * from department where id = {id}").on('id -> id).as(Department.simple.singleOpt)
+      )
+    }
   }
 
   def list() = {
-
+    DB.withConnection {
+      implicit connection =>
+        SQL(
+          """
+            select * from department
+            order by name
+          """).as(Department.simple *)
+    }
   }
 
-  def update(id: Long, student: Student) = {
-
+  def options() = {
+    DB.withConnection {
+      implicit connection =>
+        SQL(
+          """
+            select * from department
+            order by name
+          """)
+          .as(Department.simple *)
+          .map(c => c.id.toString -> c.name)
+    }
   }
 
-  def insert(student: Student) = {
+  def update(id: Long, department: Department) = {
+    DB.withConnection {
+      implicit connection =>
+        SQL(
+          """
+            update department
+            set name = {name}, imageSrc = {imageSrc}
+            where id = {id}
+          """)
+          .on(
+            'id -> id,
+            'name -> department.name,
+            'imageSrc -> department.imageSrc
+          ).executeUpdate()
+    }
+  }
 
+  def insert(department: Department) = {
+    DB.withConnection {
+      implicit connection =>
+        SQL(
+          """
+            insert into department (name, department)
+            values ({name}, {department})
+          """)
+          .on(
+            'name -> department.name,
+            'department -> department.imageSrc
+          ).executeUpdate()
+    }
   }
 
   def delete(id: Long) = {
-
+    DB.withConnection {
+      implicit connection =>
+        SQL("delete from department where id = {id}").on('id -> id).executeUpdate()
+    }
   }
 
 }

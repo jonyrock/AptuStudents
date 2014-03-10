@@ -1,0 +1,37 @@
+@(studentForm: Form[Student], departments: Seq[(String, String)])
+
+@import helper._
+
+@main("Add a student") {
+
+@if(studentForm.hasGlobalErrors) {
+<ul>
+    @studentForm.globalErrors.foreach { error =>
+    <li>error.message</li>
+    }
+</ul>
+}
+
+@form(routes.Students.save()) {
+
+<fieldset>
+
+    @inputText(studentForm("name"), '_label -> "Student name")
+
+    @select(
+        studentForm("department"),
+        departments,
+        '_label -> "Department", '_default -> "-- Choose a department --",
+        '_showConstraints -> false
+    )
+
+</fieldset>
+
+<div class="actions">
+    <input type="submit" value="Create student" class="btn primary">
+    <a href="@routes.Students.list()" class="btn">Cancel</a>
+</div>
+
+}
+
+}

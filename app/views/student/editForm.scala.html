@@ -1,8 +1,18 @@
-@(id: Long, studentForm: Form[Student])
+@(id: Long, studentForm: Form[Student], departments: Seq[(String, String)])
 
 @import helper._
 
 @main("Edit student") {
+
+#{ifErrors}
+
+<h1>Oops…</h1>
+
+#{errors}
+<li>${error}</li>
+#{/errors}
+
+#{/ifErrors}
 
 @form(routes.Students.update(id)) {
 
@@ -13,6 +23,7 @@
 
 <div class="actions">
     <input type="submit" value="Edit">
+    <a href="@routes.Students.delete(id)" class="btn danger">Delete</a>
 </div>
 
 }

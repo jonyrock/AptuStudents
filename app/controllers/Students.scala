@@ -4,7 +4,7 @@ import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
 
-import models.Student
+import models.{Department, Student}
 import views._
 import anorm._
 
@@ -14,19 +14,19 @@ object Students extends Controller {
     mapping(
       "id" -> ignored(NotAssigned: Pk[Long]),
       "name" -> nonEmptyText(minLength = 5, maxLength = 40),
-      "department" -> text
+      "department" -> longNumber
     )(Student.apply)(Student.unapply)
   )
 
   def list = Action {
     implicit request =>
-      Ok(html.studentsList(Student.list))
+      Ok(html.student.list(Student.list))
   }
 
   def save = Action {
     implicit request =>
       studentForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(html.studentCreateForm(formWithErrors)),
+        formWithErrors => BadRequest(html.student.createForm(formWithErrors, Department.options())),
         student => {
           Student.insert(student)
           Ok(html.operationResult("Good"))
@@ -35,29 +35,37 @@ object Students extends Controller {
   }
 
   def create = Action {
-    Ok(html.studentCreateForm(studentForm))
+    try {
+      Ok(html.student.createForm(studentForm, Department.options()))
+    } catch {
+      case e: Exception => sys.error(e.getMessage)
+    }
   }
 
   def edit(id: Long) = Action {
     Student.findById(id).map {
       student =>
-        Ok(html.studentEditForm(id, studentForm.fill(student)))
+        Ok(html.student.editForm(id, studentForm.fill(student), Department.options()))
     }.getOrElse(NotFound)
   }
 
   def update(id: Long) = Action {
     implicit request => {
       studentForm.bindFromRequest.fold(
-        formWithErrors => BadRequest(html.studentEditForm(id, formWithErrors)),
+        formWithErrors => BadRequest(html.student.editForm(id, formWithErrors, Department.options())),
         student => {
           Student.update(id, student)
           Ok(html.operationResult("Good"))
         }
       )
     }
-
   }
 
-  def delete(id: Long) = TODO
+  def delete(id: Long) = Action {
+    implicit request => {
+      Student.delete(id)
+      Ok(html.operationResult("Good"))
+    }
+  }
 
 }
