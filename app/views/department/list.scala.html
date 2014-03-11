@@ -1,0 +1,25 @@
+@(students: Seq[Student])
+
+@main("Home") {
+    <h3>Menu:</h3>
+    <ul>
+        <li>
+            <a href="@routes.StudentController.list" class="btn">See all students</a>
+        </li>
+        <li>
+            <a href="@routes.StudentController.create" class="btn">Add a student</a>
+        </li>
+    </ul>
+    <table>
+        @students.map {
+            case student => {
+                <tr>
+                    <td>@student.name</td>
+                    <td>
+                        <a href="@routes.StudentController.edit(student.id.get)" class="btn">Edit</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}

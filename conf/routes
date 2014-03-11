@@ -5,12 +5,21 @@
 # Home page
 GET     /                               controllers.Application.index
 
-GET     /students                       controllers.Students.list
-GET     /students/new                   controllers.Students.create
-POST    /students                       controllers.Students.save
-GET     /student/:id                    controllers.Students.edit(id: Long)
-POST    /student/:id                    controllers.Students.update(id: Long)
-DELETE  /student/:id                    controllers.Students.delete(id: Long)
+# Students
+GET     /students                       controllers.StudentController.list
+GET     /students/new                   controllers.StudentController.create
+POST    /students                       controllers.StudentController.save
+GET     /student/:id                    controllers.StudentController.edit(id: Long)
+POST    /student/:id                    controllers.StudentController.update(id: Long)
+DELETE  /student/:id                    controllers.StudentController.delete(id: Long)
+
+# Departments
+GET     /departments                    controllers.DepartmentController.list
+GET     /departments/new                controllers.DepartmentController.create
+POST    /departments                    controllers.DepartmentController.save
+GET     /departments/:id                controllers.DepartmentController.edit(id: Long)
+POST    /departments/:id                controllers.DepartmentController.update(id: Long)
+DELETE  /departments/:id                controllers.DepartmentController.delete(id: Long)
 
 
 # Map static resources from the /public folder to the /assets URL path

@@ -1,4 +1,4 @@
-@(id: Long, studentForm: Form[Student], departments: Seq[(String, String)])
+@(id: Long, studentForm: Form[Department])
 
 @import helper._
 
@@ -14,7 +14,7 @@
 
 #{/ifErrors}
 
-@form(routes.StudentController.update(id)) {
+@form(routes.DepartmentController.update(id)) {
 
 <fieldset>
     @inputText(studentForm("name"), '_label -> "Student name")

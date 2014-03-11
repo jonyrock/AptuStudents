@@ -15,7 +15,8 @@ case class Student(
 case class Department(
                        id: Pk[Long] = NotAssigned,
                        name: String,
-                       imageSrc: String
+                       imageSrc: String,
+                       code: String
                        )
 
 object Student {
@@ -34,7 +35,9 @@ object Student {
 
   def findById(id: Long): Option[Student] = {
     DB.withConnection(implicit connection =>
-      SQL("select * from student where id = {id}").on('id -> id).as(Student.simple.singleOpt)
+      SQL("select * from student where id = {id}")
+        .on('id -> id)
+        .as(Student.simple.singleOpt)
     )
   }
 
@@ -94,16 +97,17 @@ object Department {
 
   val simple = get[Pk[Long]]("department.id") ~
     get[String]("department.name") ~
-    get[String]("department.imageSrc") map {
-    case id ~ name ~ imageSrc => Department(id, name, imageSrc)
+    get[String]("department.imageSrc") ~
+    get[String]("department.code") map {
+    case id ~ name ~ imageSrc ~ code => Department(id, name, imageSrc, code)
   }
 
-  def findById(id: Long) = {
-    def findById(id: Long): Option[Department] = {
-      DB.withConnection(implicit connection =>
-        SQL("select * from department where id = {id}").on('id -> id).as(Department.simple.singleOpt)
-      )
-    }
+  def findById(id: Long): Option[Department] = {
+    DB.withConnection(implicit connection =>
+      SQL("select * from department where id = {id}")
+        .on('id -> id)
+        .as(Department.simple.singleOpt)
+    )
   }
 
   def list() = {

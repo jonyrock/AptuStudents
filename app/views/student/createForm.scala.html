@@ -12,7 +12,7 @@
 </ul>
 }
 
-@form(routes.Students.save()) {
+@form(routes.StudentController.save()) {
 
 <fieldset>
 
@@ -28,8 +28,8 @@
 </fieldset>
 
 <div class="actions">
-    <input type="submit" value="Create student" class="btn primary">
-    <a href="@routes.Students.list()" class="btn">Cancel</a>
+    <input type="submit" value="Create" class="btn primary">
+    <a href="@routes.StudentController.list()" class="btn">Cancel</a>
 </div>
 
 }

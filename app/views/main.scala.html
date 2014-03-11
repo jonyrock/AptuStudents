@@ -6,16 +6,38 @@
     <head>
         <title>@title</title>
         <link rel="stylesheet" href='@routes.Assets.at("css/bootstrap.min.css")'>
-        <script src="@routes.Assets.at("js/jquery-1.9.0.min.js")"></script>
-        <script src="@routes.Assets.at("js/bootstrap.min.js")"></script>
+        <link rel="stylesheet" href='@routes.Assets.at("css/bootstrap-theme.min.css")'>
+        <script src='@routes.Assets.at("js/bootstrap.min.js")'></script>
     </head>
     <body>
-        <div style="margin:auto; width:400px;">
-            <h1 style="text-align:center">AptuStudents</h1>
+        <div style="margin:auto; width:500px;">
+            <a href="/"> <h1 style="text-align:center">AptuStudents</h1>  </a>
             <hr/>
-            <h2>@title</h2>
-            @content
+            <ul class="nav nav-pills">
+                <li>
+                    <a href="@routes.StudentController.list">Students</a>
+                </li>
+                <li>
+                    <a href="@routes.StudentController.create">Add Student</a>
+                </li>
+                <li>
+                    <a href="@routes.DepartmentController.list">Departments</a>
+                </li>
+                <li>
+                    <a href="@routes.DepartmentController.create">Add departments</a>
+                </li>
+            </ul>
+            <br/>
+            <div class="panel panel-default">
+                <div class="panel-heading">@title</div>
+                <div class="panel-body">
+                    @content
+                </div>
+            </div>
+
+
             <hr />
+            <p></p>
         </div>
     </body>
 </html>

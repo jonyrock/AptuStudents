@@ -8,12 +8,12 @@ import models.{Department, Student}
 import views._
 import anorm._
 
-object Students extends Controller {
+object StudentController extends Controller {
 
   val studentForm = Form(
     mapping(
       "id" -> ignored(NotAssigned: Pk[Long]),
-      "name" -> nonEmptyText(minLength = 5, maxLength = 40),
+      "name" -> nonEmptyText(minLength = 5, maxLength = 45),
       "department" -> longNumber
     )(Student.apply)(Student.unapply)
   )
