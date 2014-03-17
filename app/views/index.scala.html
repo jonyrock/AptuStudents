@@ -1,18 +1,30 @@
-@(students: Seq[Student], departments: Seq[Department])
+@(student_department_items: Seq[(Student, Department)], departments: Seq[Department])
 
 @main("Home") {
 
 <h4>Students</h4>
-<table>
-    @students.map {
-    case student => {
+<table style="width:100%">
+    @student_department_items.map {
+    case (student, department) => {
     <tr>
         <td>@student.name</td>
-        <td>
-            <a href="@routes.StudentController.edit(student.id.get)">edit</a>
-        </td>
+        <td>@department.code</td>
     </tr>
     }
     }
 </table>
+
+<h4>Departments</h4>
+@departments.map {
+case department => {
+<div style="float:left; width: 80px; height: 30px; line-height: 30px; margin-left: 15px">
+    <img src="@department.imageSrc" style="width:30px; height:30px"/>
+    @department.code
+</div>
 }
+}
+
+<div style="clear: both"></div>
+
+}
+

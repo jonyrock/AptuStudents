@@ -19,7 +19,7 @@ object DepartmentController extends Controller {
 
   def list = Action {
     implicit request =>
-      Ok(html.student.list(Student.list))
+      Ok(html.department.list(Department.list()))
   }
 
   def save = Action {

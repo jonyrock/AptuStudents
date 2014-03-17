@@ -4,22 +4,11 @@
 
 @main("Edit student") {
 
-#{ifErrors}
-
-<h1>Oops…</h1>
-
-#{errors}
-<li>${error}</li>
-#{/errors}
-
-#{/ifErrors}
-
 @form(routes.StudentController.update(id)) {
 
 <fieldset>
     @inputText(studentForm("name"), '_label -> "Student name")
-    @inputText(studentForm("department"), '_label -> "Department")
-</fieldset>
+    @inputText(studentForm("department"), '_label -> "Department")</fieldset>
 
 <div class="actions">
     <input type="submit" value="Edit">

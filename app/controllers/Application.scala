@@ -7,7 +7,8 @@ import models.{Department, Student}
 object Application extends Controller {
 
   def index = Action {
-      Ok(html.index(Student.list(), Department.list()))
+      val v = Student.listWithDepartment
+      Ok(html.index(v, Department.list()))
   }
 
 }

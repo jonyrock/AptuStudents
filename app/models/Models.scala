@@ -29,8 +29,8 @@ object Student {
     }
   }
 
-  val withDepartment = Student.simple ~ (Department.simple ?) map {
-    case computer ~ company => (computer, company)
+  val withDepartment = Student.simple ~ Department.simple map {
+    case computer ~ department => (computer, department)
   }
 
   def findById(id: Long): Option[Student] = {
@@ -51,6 +51,18 @@ object Student {
           """).as(Student.simple *)
     }
   }
+
+  def listWithDepartment: Seq[(Student, Department)] = {
+    DB.withConnection {
+      implicit connection =>
+        SQL(
+          """
+            select * from student
+            left join department on student.department = department.id
+          """).as(Student.withDepartment *)
+    }
+  }
+
 
   def update(id: Long, student: Student) = {
     DB.withConnection {
@@ -140,13 +152,14 @@ object Department {
         SQL(
           """
             update department
-            set name = {name}, imageSrc = {imageSrc}
+            set name = {name}, imageSrc = {imageSrc}, code = {code}
             where id = {id}
           """)
           .on(
             'id -> id,
             'name -> department.name,
-            'imageSrc -> department.imageSrc
+            'imageSrc -> department.imageSrc,
+            'code -> department.code
           ).executeUpdate()
     }
   }
@@ -156,12 +169,13 @@ object Department {
       implicit connection =>
         SQL(
           """
-            insert into department (name, department)
-            values ({name}, {department})
+            insert into department (name, imageSrc, code)
+            values ({name}, {imageSrc}, {code})
           """)
           .on(
             'name -> department.name,
-            'department -> department.imageSrc
+            'imageSrc -> department.imageSrc,
+            'code -> department.code
           ).executeUpdate()
     }
   }
