@@ -9,18 +9,22 @@ GET     /                               controllers.Application.index
 GET     /students                       controllers.StudentController.list
 GET     /students/new                   controllers.StudentController.create
 POST    /students                       controllers.StudentController.save
+PUT     /students                       controllers.StudentController.save
 GET     /student/:id                    controllers.StudentController.edit(id: Long)
 POST    /student/:id                    controllers.StudentController.update(id: Long)
+GET     /student/:id/delete             controllers.StudentController.delete(id: Long)
 DELETE  /student/:id                    controllers.StudentController.delete(id: Long)
+
 
 # Departments
 GET     /departments                    controllers.DepartmentController.list
 GET     /departments/new                controllers.DepartmentController.create
 POST    /departments                    controllers.DepartmentController.save
+PUT     /departments                    controllers.DepartmentController.save
 GET     /departments/:id                controllers.DepartmentController.edit(id: Long)
 POST    /departments/:id                controllers.DepartmentController.update(id: Long)
+GET     /departments/:id/delete         controllers.DepartmentController.delete(id: Long)
 DELETE  /departments/:id                controllers.DepartmentController.delete(id: Long)
-
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                   controllers.Assets.at(path="/public", file)

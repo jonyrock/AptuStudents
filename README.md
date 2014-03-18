@@ -18,3 +18,8 @@ Run
 $ play run
 ```
 
+Test
+====
+Plz use tool like https://chrome.google.com/webstore/detail/rest-console/cokgbflfommojglbmbpenpphppikmonn/related?hl=en
+for testing rest tools
+
