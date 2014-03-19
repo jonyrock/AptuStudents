@@ -8,7 +8,14 @@
 
 <fieldset>
     @inputText(studentForm("name"), '_label -> "Student name")
-    @inputText(studentForm("department"), '_label -> "Department")</fieldset>
+    @select(
+        studentForm("department"),
+        departments,
+        '_label -> "Department", '_default -> "-- Choose a department --",
+        '_showConstraints -> false
+    )
+
+</fieldset>
 
 <div class="actions">
     <input type="submit" value="Edit">

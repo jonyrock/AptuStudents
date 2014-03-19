@@ -126,8 +126,9 @@ object StudentController extends Controller {
         case _ => ""
       }
 
-
-      if (acc("html")) {
+      if (res.isEmpty) {
+        Status(488)("Strange content type")
+      } else if (acc("html")) {
         saveHtmlRes(res)
       } else if (acc("json")) {
         saveJsonRes(res)
