@@ -126,6 +126,7 @@ object StudentController extends Controller {
         case _ => ""
       }
 
+
       if (acc("html")) {
         saveHtmlRes(res)
       } else if (acc("json")) {
