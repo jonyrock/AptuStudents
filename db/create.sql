@@ -3,8 +3,8 @@
 -- Host: localhost    Database: aptu_students
 -- ------------------------------------------------------
 -- Server version	5.5.35-0ubuntu0.13.10.2
-create database aptu_students
-use aptu_students
+create database aptu_students;
+use aptu_students;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
