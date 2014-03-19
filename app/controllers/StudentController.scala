@@ -110,7 +110,6 @@ object StudentController extends Controller {
       case Some(student) =>
         Student.insert(student)
         "good"
-
       case _ => "bad"
     }
   }
@@ -123,7 +122,7 @@ object StudentController extends Controller {
     implicit request =>
       val res = request.contentType match {
         case Some("text/html") => saveHtml()
-        case Some("text/json") => saveJson()
+        case Some("application/json") => saveJson()
         case _ => ""
       }
 
