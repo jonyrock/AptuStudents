@@ -15,7 +15,7 @@ Installation
 Run
 ===
 ```
-$ play run
+$ play ~run
 ```
 
 Test
